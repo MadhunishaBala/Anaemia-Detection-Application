@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>AnaemiaScan — Non-Invasive Detection</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+<body>
+
+<header>
+  <div class="logo-mark">Anaemia Prediction Model</div>
+</header>
+
+<div class="card">
+  <div class="section-label">Upload Images</div>
+  <div class="upload-grid">
+    <div class="upload-zone" id="palmZone">
+      <input type="file" id="palmInput" accept="image/*" onchange="previewImage(this,'palmZone','palmPreview')"/>
+      <img class="upload-preview" id="palmPreview" alt="Palm preview"/>
+      <span class="upload-icon">🖐️</span>
+      <h3>Palm Image</h3>
+      <p>Tap to upload</p>
+    </div>
+    <div class="upload-zone" id="nailZone">
+      <input type="file" id="nailInput" accept="image/*" onchange="previewImage(this,'nailZone','nailPreview')"/>
+      <img class="upload-preview" id="nailPreview" alt="Nail preview"/>
+      <span class="upload-icon">💅</span>
+      <h3>Nail Image</h3>
+      <p>Tap to upload</p>
+    </div>
+  </div>
+
+  <div class="section-label">Patient Details</div>
+  <div class="meta-grid">
+    <div class="field">
+      <label>Age</label>
+      <input type="number" id="ageInput" placeholder="e.g. 28" min="1" max="120"/>
+    </div>
+    <div class="field">
+      <label>Gender</label>
+      <select id="genderInput">
+        <option value="" disabled selected>Select gender</option>
+        <option value="0">Female</option>
+        <option value="1">Male</option>
+      </select>
+    </div>
+  </div>
+
+  <button class="btn-predict" id="predictBtn" onclick="runPrediction()">
+    <span class="btn-text">Run Analysis</span>
+    <div class="spinner"></div>
+  </button>
+
+  <div class="error-msg" id="errorMsg"></div>
+
+    <!-- Classification Result -->
+    <div class="result-card" id="resultCard" style="display:none">
+        <div class="section-label">Classification Result</div>
+        <div class="result-header">
+            <div class="result-label" id="resultLabel">—</div>
+            <div class="result-badge" id="resultBadge">—</div>
+        </div>
+        <div class="confidence-bar-wrap">
+            <label>
+                <span>Confidence</span>
+                <span id="confPct">—</span>
+            </label>
+            <div class="bar-track"><div class="bar-fill" id="barFill"></div></div>
+        </div>
+    </div>
+
+    <!-- Regression Result -->
+    <div class="result-card" id="regressionCard" style="display:none">
+        <div class="section-label">Regression Result</div>
+        <div class="result-header">
+            <div class="result-label" id="hbValue">— g/dL</div>
+            <div class="result-badge" id="severityValue">—</div>
+        </div>
+        <p class="hb-note">Predicted haemoglobin level with WHO severity classification</p>
+    </div>
+</div>
+
+<footer>Madhunisha Balajeyadhan_2237032_Research</footer>
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
