@@ -1,6 +1,6 @@
-Flask==2.3.2
-tensorflow==2.13.0
-numpy==1.24.3
-opencv-python==4.8.0.74
+Flask==3.0.0
+tensorflow==2.16.1
+numpy==1.26.4
+opencv-python==4.8.1.78
 gunicorn==21.2.0
-Werkzeug==2.3.7
+Werkzeug==3.0.1
