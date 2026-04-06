@@ -162,20 +162,40 @@ def fig_to_base64(fig):
 
 # ── Generate attention map figure ────────────────────────────────
 def generate_attention_figure(palm_img, nail_img, maps):
-    fig, axes = plt.subplots(2, 4, figsize=(16, 8))
+    fig, axes = plt.subplots(2, 5, figsize=(20, 8))
     fig.suptitle("Spatial Attention Maps", fontsize=14, fontweight="bold")
 
     # Row 1 — Palm
-    axes[0][0].imshow(palm_img);                                          axes[0][0].set_title("Original Palm");             axes[0][0].axis("off")
-    axes[0][1].imshow(maps["palm_self"], cmap="winter");                  axes[0][1].set_title("Palm Self-Attention");        axes[0][1].axis("off")
-    axes[0][2].imshow(overlay_heatmap(palm_img, maps["palm_self"],  cv2.COLORMAP_WINTER)); axes[0][2].set_title("Palm Self Overlay");  axes[0][2].axis("off")
-    axes[0][3].imshow(overlay_heatmap(palm_img, maps["palm_cross"], cv2.COLORMAP_COOL));   axes[0][3].set_title("Palm Cross Overlay\n(Age/Gender guided)"); axes[0][3].axis("off")
+    axes[0][0].imshow(palm_img)
+    axes[0][0].set_title("Original Palm"); axes[0][0].axis("off")
+
+    axes[0][1].imshow(maps["palm_self"], cmap="winter")
+    axes[0][1].set_title("Palm Self-Attn (7×7)"); axes[0][1].axis("off")
+
+    axes[0][2].imshow(overlay_heatmap(palm_img, maps["palm_self"], cv2.COLORMAP_WINTER))
+    axes[0][2].set_title("Palm Self Overlay"); axes[0][2].axis("off")
+
+    axes[0][3].imshow(maps["palm_cross"], cmap="cool")
+    axes[0][3].set_title("Palm Cross-Attn (7×7)"); axes[0][3].axis("off")
+
+    axes[0][4].imshow(overlay_heatmap(palm_img, maps["palm_cross"], cv2.COLORMAP_COOL))
+    axes[0][4].set_title("Palm Cross Overlay\n(Age/Gender guided)"); axes[0][4].axis("off")
 
     # Row 2 — Nail
-    axes[1][0].imshow(nail_img);                                          axes[1][0].set_title("Original Nail");             axes[1][0].axis("off")
-    axes[1][1].imshow(maps["nail_self"], cmap="winter");                  axes[1][1].set_title("Nail Self-Attention");        axes[1][1].axis("off")
-    axes[1][2].imshow(overlay_heatmap(nail_img, maps["nail_self"],  cv2.COLORMAP_WINTER)); axes[1][2].set_title("Nail Self Overlay");  axes[1][2].axis("off")
-    axes[1][3].imshow(overlay_heatmap(nail_img, maps["nail_cross"], cv2.COLORMAP_COOL));   axes[1][3].set_title("Nail Cross Overlay\n(Age/Gender guided)"); axes[1][3].axis("off")
+    axes[1][0].imshow(nail_img)
+    axes[1][0].set_title("Original Nail"); axes[1][0].axis("off")
+
+    axes[1][1].imshow(maps["nail_self"], cmap="winter")
+    axes[1][1].set_title("Nail Self-Attn (7×7)"); axes[1][1].axis("off")
+
+    axes[1][2].imshow(overlay_heatmap(nail_img, maps["nail_self"], cv2.COLORMAP_WINTER))
+    axes[1][2].set_title("Nail Self Overlay"); axes[1][2].axis("off")
+
+    axes[1][3].imshow(maps["nail_cross"], cmap="cool")
+    axes[1][3].set_title("Nail Cross-Attn (7×7)"); axes[1][3].axis("off")
+
+    axes[1][4].imshow(overlay_heatmap(nail_img, maps["nail_cross"], cv2.COLORMAP_COOL))
+    axes[1][4].set_title("Nail Cross Overlay\n(Age/Gender guided)"); axes[1][4].axis("off")
 
     plt.tight_layout()
     return fig_to_base64(fig)
