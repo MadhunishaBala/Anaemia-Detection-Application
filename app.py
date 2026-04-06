@@ -225,6 +225,16 @@ def predict():
     confidence = prob if label == "Anemic" else 1 - prob
     severity   = get_severity(age, gender, hb_rounded)
 
+    final_label = label
+
+    # Flag conflict between classification and regression outputs
+    if label == "Anemic" and severity == "Non-Anemic":
+        conflict_note = "Haemoglobin estimate suggests Non-Anaemic. Please consult a clinician."
+    elif label == "Non-Anemic" and severity != "Non-Anemic":
+        conflict_note = "Haemoglobin estimate suggests possible anaemia. Please consult a clinician."
+    else:
+        conflict_note = None
+
     # Generate attention maps
     try:
         maps           = extract_attention_maps(model, palm_arr, nail_arr, meta_arr)
@@ -239,6 +249,7 @@ def predict():
         "confidence"    : round(confidence * 100, 1),
         "hb_level"      : hb_rounded,
         "severity"      : severity,
+        "conflict_note" : conflict_note,
         "attention_map" : attention_plot  # base64 encoded PNG
     })
 

@@ -21,7 +21,8 @@ function previewImage(input, zoneId, previewId) {
     errMsg.style.display  = 'none';
     resCard.style.display = 'none';
     document.getElementById('regressionCard').style.display  = 'none';
-    document.getElementById('attentionCard').style.display   = 'none';  // ← reset
+    document.getElementById('attentionCard').style.display   = 'none';
+    document.getElementById('conflictNote').style.display    = 'none';  // ← reset
 
     if (!palmFile || !nailFile || !age || gender === '') {
       errMsg.textContent   = '⚠ Please provide both images, age, and gender.';
@@ -62,10 +63,18 @@ function previewImage(input, zoneId, previewId) {
       document.getElementById('severityValue').textContent = data.severity;
       regCard.style.display = 'block';
 
-      // Attention map card              ← add this block
+      // Attention map card             
       if (data.attention_map) {
         document.getElementById('attentionImg').src          = 'data:image/png;base64,' + data.attention_map;
         document.getElementById('attentionCard').style.display = 'block';
+      }
+
+      // Conflict note
+      if (data.conflict_note) {
+          document.getElementById('conflictNote').textContent = data.conflict_note;
+          document.getElementById('conflictNote').style.display = 'block';
+      } else {
+          document.getElementById('conflictNote').style.display = 'none';
       }
 
     } catch (err) {
