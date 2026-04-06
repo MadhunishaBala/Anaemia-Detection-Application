@@ -17,16 +17,23 @@ Upload a palm image and a nail image, enter your age and gender, and the applica
 5. **Visualise** spatial attention maps showing which regions of the palm and nail the model focused on when making the prediction
 
 ## Project Structure
-├── app.py                  # Flask application and prediction logic
-├── requirements.txt        # Python dependencies
-├── Procfile                # Railway deployment config
+```
+Anaemia-Detection-Application/
+│
+├── app.py                    # Flask application, prediction logic and attention map generation
+├── requirements.txt          # Python dependencies
+├── Procfile                  # Railway deployment configuration
+│
 ├── model/
-│   └── CNN_Model_4.keras   # Trained joint model
+│   └── CNN_Model_4.keras     # Trained CNN4 joint model weights
+│
 ├── templates/
-│   └── index.html          # Frontend HTML
+│   └── index.html            # Frontend HTML
+│
 └── static/
-├── style.css           # Styling
-└── script.js           # Frontend logic
+    ├── style.css             # Styling
+    └── script.js             # Frontend prediction and display logic
+```
 
 
 
