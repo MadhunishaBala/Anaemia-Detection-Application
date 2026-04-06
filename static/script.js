@@ -1,4 +1,3 @@
-
 function previewImage(input, zoneId, previewId) {
     const zone    = document.getElementById(zoneId);
     const preview = document.getElementById(previewId);
@@ -21,10 +20,11 @@ function previewImage(input, zoneId, previewId) {
 
     errMsg.style.display  = 'none';
     resCard.style.display = 'none';
-    document.getElementById('regressionCard').style.display = 'none';
+    document.getElementById('regressionCard').style.display  = 'none';
+    document.getElementById('attentionCard').style.display   = 'none';  // ← reset
 
     if (!palmFile || !nailFile || !age || gender === '') {
-      errMsg.textContent  = '⚠ Please provide both images, age, and gender.';
+      errMsg.textContent   = '⚠ Please provide both images, age, and gender.';
       errMsg.style.display = 'block'; return;
     }
 
@@ -43,7 +43,7 @@ function previewImage(input, zoneId, previewId) {
 
       if (data.error) throw new Error(data.error);
 
-            // Classification card
+      // Classification card
       const isAnemic = data.label === 'Anemic';
       resCard.className = 'result-card ' + (isAnemic ? 'anemic' : 'non-anemic');
       document.getElementById('resultLabel').textContent = data.label;
@@ -55,14 +55,18 @@ function previewImage(input, zoneId, previewId) {
       }, 50);
 
       // Regression card
-      const regCard = document.getElementById('regressionCard');
+      const regCard    = document.getElementById('regressionCard');
       const isAnemicReg = data.severity !== 'Non-Anemic';
       regCard.className = 'result-card ' + (isAnemicReg ? 'anemic' : 'non-anemic');
-      document.getElementById('hbValue').textContent     = data.hb_level + ' g/dL';
+      document.getElementById('hbValue').textContent       = data.hb_level + ' g/dL';
       document.getElementById('severityValue').textContent = data.severity;
       regCard.style.display = 'block';
 
-      
+      // Attention map card              ← add this block
+      if (data.attention_map) {
+        document.getElementById('attentionImg').src          = 'data:image/png;base64,' + data.attention_map;
+        document.getElementById('attentionCard').style.display = 'block';
+      }
 
     } catch (err) {
       errMsg.textContent   = '✗ ' + err.message;
