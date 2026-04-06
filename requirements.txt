@@ -1,6 +1,8 @@
 Flask==3.0.0
 tensorflow==2.21.0
 numpy>=2.1.0
+matplotlib
 opencv-python-headless>=4.8.0
 gunicorn==21.2.0
 Werkzeug==3.0.1
+
